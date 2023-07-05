@@ -48,26 +48,7 @@ This can be understood by considering clipping the signal as if applying a recta
 Ripple occurs when we convolve two frequency domain plots.
 
 Implementation of windowing in python:
-
-from scipy.signal import hanning
-import tensorflow as tf
-import numpy as np
-
-N = 256 # FFT size
-audio = np.random.rand(N, 1) * 2 - 1
-w = hanning(N)
-
-input  = tf.placeholder(tf.float32, shape=(N, 1))
-window = tf.placeholder(tf.float32, shape=(N))
-window_norm = tf.div(window, tf.reduce_sum(window))
-windowed_input = tf.multiply(input, window_norm)
-
-with tf.Session() as sess:
-    tf.global_variables_initializer().run()
-    windowed_input_val = sess.run(windowed_input, {
-        window: w,
-        input: audio
-    })
+https://github.com/anurag-mukherjee2304/Audio-processing-tensorflow/blob/main/windowing.py
 
 Zero-Phase Padding:
 To use the FFT, the length of the input signal must be a power of two. If the input signal is not of the correct length, we can add leading and trailing zeros  to the signal itself. 
@@ -87,6 +68,6 @@ The entire code is divided into two files: helpers.py and stft.py .
 Refer to the codes above for clear understanding.
 
 
-Conclusion:
+# Conclusion:
 
 The ability to do the STFT in TensorFlow allows Machine Learning practitioners to transform a signal from the time domain to the frequency domain from any point in the computation graph.
